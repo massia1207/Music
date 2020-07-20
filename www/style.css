@@ -1,0 +1,10 @@
+.form-control{
+  justify-self: center;
+  font-weight: 400;
+  text-align: center;
+}
+
+
+#check{
+  margin-right: 15px;
+}
