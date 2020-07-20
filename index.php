@@ -1,6 +1,6 @@
 <?php
 
-require_once('../db_config.php');
+require_once('db_config.php');
 // require_once('results.php');
 
 $query = "SELECT * FROM notes";
