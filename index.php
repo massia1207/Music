@@ -34,7 +34,7 @@ $correctAnswer = $db_connection->query("SELECT * FROM notes WHERE Root = :$key")
   <body>
     <br>
     <div class="container">
-    <h1 class = "col-sm-5">Music Interval Test</h1> 
+    <h2 class = "col-sm-5"><a href=""><i class="fa fa-music"></i></a> Interval Test <a href=""><i class="fa fa-music"></i></a></h2> 
     <br>   
 
       <form method="post" >
