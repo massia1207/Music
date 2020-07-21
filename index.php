@@ -25,6 +25,7 @@ $correctAnswer = $db_connection->query("SELECT * FROM notes WHERE Root = :$key")
   <html lang="en">
   <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Music Interval Test</title>
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
@@ -33,7 +34,7 @@ $correctAnswer = $db_connection->query("SELECT * FROM notes WHERE Root = :$key")
   <body>
     <br>
     <div class="container">
-    <h1>Musical Interval Test</h1> 
+    <h1 class = "col-sm-5">Music Interval Test</h1> 
     <br>   
 
       <form method="post" >
@@ -52,17 +53,17 @@ $correctAnswer = $db_connection->query("SELECT * FROM notes WHERE Root = :$key")
         <div class="form-group row">
           <label for="answer" class="col-sm-2 col-form-label">Your Answer</label>
           <div id = "selection" class="col-sm-3 btn">
-              <select name = "userAnswer" class="form-control">
+             <select type = "submit" name = "userAnswer" class="form-control" onchange ="this.form.submit();">
               <option value = "" disabled selected>Select</option>
               <?php foreach ($keys as $item){?>
                 <option value="<?php echo $item;?>"><?php echo $item;}?></option>
-            </select> 
+            </select>
           </div>
         </div>
-        <div id = marcus class = "form-group row">
-          <button type="submit" id="check" name="check" class="col-sm-5 btn btn-outline-secondary">Check Answer
+        <div class = "form-group">
+          <!-- <button type="submit" id="check" name="check" class="col-sm-5 btn btn-outline-secondary">Check Answer
           <a href=""><i class="fa fa-music"></i></a>
-          </button>
+          </button> -->
         </div>
       
       </form>
@@ -77,7 +78,9 @@ session_start();
 if(isset($_POST['clearScore'])){
   session_destroy();
 }
-if(isset($_POST['check'])){
+// if(isset($_POST['check'])){
+
+if($_POST['userAnswer'] !=''){
 
 $root = $_POST['root'];
 $interval = $_POST['Interval'];
@@ -99,12 +102,12 @@ $correctAnswer = $result2[$interval];
   if($correctAnswer === $userAnswer){
     $_SESSION['wins']+=1
   ?>
-  <div class="alert alert-success row" role = "alert">
+  <div class="alert alert-success col-sm-5" role = "alert">
     <?php echo "Correct, $userAnswer is the $interval from $root";?>
    
   <?php }else{
       $_SESSION['losses']+=1?>
-    <div class="alert alert-danger" role = "alert">
+    <div class="alert alert-danger col-sm-5" role = "alert">
     <?php echo "Sorry, $userAnswer is not the $interval from $root";}?>
     </div>
 
@@ -116,7 +119,7 @@ $correctAnswer = $result2[$interval];
     <!-- <button type="input" id="again" name="again" class="btn">Play Again
       <a href="index.php"><i class="fa fa-music"></i></a>
     </button> -->
-    <input type = "submit" name="clearScore" value = "Clear Score" class="btn btn-secondary row"></input>
+    <input type = "submit" name="clearScore" value = "Clear Score" class="btn btn-secondary"></input>
   </form>
  </div>
 <script src="app.js"></script>
