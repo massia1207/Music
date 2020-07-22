@@ -19,6 +19,20 @@ $intervalIndex = array_rand($intervals,1);
 $interval = $intervals[$intervalIndex];
 $correctAnswer = $db_connection->query("SELECT * FROM notes WHERE Root = :$key");
 
+$query2 = "SELECT * FROM notes WHERE Root = :root LIMIT 1";
+$result2 = $db_connection->prepare($query2);
+$result2->execute([
+ 'root' => $key  
+]);
+
+$result2 = $result2->fetch(PDO::FETCH_ASSOC);
+$userOptions = array();
+foreach ($result2 as $x){
+  array_push($userOptions, $x);
+};
+array_shift($userOptions);
+sort($userOptions);
+
 ?>
 
 <!DOCTYPE html>
@@ -54,8 +68,7 @@ $correctAnswer = $db_connection->query("SELECT * FROM notes WHERE Root = :$key")
           <label>Your Answer</label>
         </div>
         <div class="radio form-control col-sm-5">
-        <?php foreach ($keys as $item){?>
-          
+        <?php foreach ($userOptions as $item){?>
           <button class="btn" id = "ma">
             <label for = "<?php echo $item;?>">
               <input id = "<?php echo $item;?>" type = "radio" name = "userAnswer" value = "<?php echo $item;?>"hidden><?php echo $item;?>
@@ -63,26 +76,8 @@ $correctAnswer = $db_connection->query("SELECT * FROM notes WHERE Root = :$key")
           </button>  
          <?php }?>
         </div>
-        </div>
-
-        <!-- <div class="form-group row">
-          <label for="answer" class="col-sm-2 col-form-label">Your Answer</label>
-          <div id = "selection" class="col-sm-3 btn">
-             <select type = "submit" name = "userAnswer" class="form-control" onchange ="this.form.submit();">
-              <option value = "" disabled selected>Select</option>
-              <?php foreach ($keys as $item){?>
-                <option value="<?php echo $item;?>"><?php echo $item;}?></option>
-            </select>
-          </div>
-        </div>
-        <div class = "form-group"> -->
-          <!-- <button type="submit" id="check" name="check" class="col-sm-5 btn btn-outline-secondary">Check Answer
-          <a href=""><i class="fa fa-music"></i></a>
-          </button> -->
-        </div>
-      
+        </div>      
       </form>
-    
   </div>
 
   <!-- NEW SECTION******************************************* -->
@@ -91,7 +86,6 @@ $correctAnswer = $db_connection->query("SELECT * FROM notes WHERE Root = :$key")
 if(isset($_POST['clearScore'])){
   session_destroy();
 }
-// if(isset($_POST['check'])){
 
 if($_POST['userAnswer'] !=''){
 
@@ -129,9 +123,6 @@ $correctAnswer = $result2[$interval];
     <?php echo $_SESSION['wins'];?><br>Wrong: <?php echo $_SESSION['losses'];?>
   </P>   
   <form method="POST">
-    <!-- <button type="input" id="again" name="again" class="btn">Play Again
-      <a href="index.php"><i class="fa fa-music"></i></a>
-    </button> -->
     <input type = "submit" name="clearScore" value = "Clear Score" class="btn btn-secondary"></input>
   </form>
  </div>
