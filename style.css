@@ -16,3 +16,28 @@ h2{
 .alert{
   text-align: center;
 }
+
+.radio label {
+  border-radius: 5px;
+  border-width: 1px;
+  margin: 0px;
+  padding: 0px 10px;
+  display: inline-block;
+  cursor: pointer;
+  
+}
+
+#ma {
+  border-radius: 5px;
+  border-width: 0px;
+  border-style: solid;
+  margin-bottom: 2px;
+  padding: 0px 0px;
+  display: inline-block;
+  background-color: lightblue;
+}
+
+
+.no-bottom{
+  margin-bottom: 0rem;
+}

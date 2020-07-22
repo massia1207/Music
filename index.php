@@ -1,7 +1,7 @@
 <?php
 
 require_once('db_config.php');
-// require_once('results.php');
+session_start();
 
 $query = "SELECT * FROM notes";
 
@@ -35,8 +35,7 @@ $correctAnswer = $db_connection->query("SELECT * FROM notes WHERE Root = :$key")
     <br>
     <div class="container">
     <h2 class = "col-sm-5"><a href=""><i class="fa fa-music"></i></a> Interval Test <a href=""><i class="fa fa-music"></i></a></h2> 
-    <br>   
-
+    
       <form method="post" >
         <div class="form-group row">
           <label for="id" class="col-sm-2 col-form-label">Root</label>
@@ -50,7 +49,23 @@ $correctAnswer = $db_connection->query("SELECT * FROM notes WHERE Root = :$key")
             <input type="text" readonly class="form-control" id="interval" name="Interval" value="<?php echo $interval;?>">
           </div>
         </div>
-        <div class="form-group row">
+
+        <div class="form-group row col-sm-5 no-bottom">
+          <label>Your Answer</label>
+        </div>
+        <div class="radio form-control col-sm-5">
+        <?php foreach ($keys as $item){?>
+          
+          <button class="btn" id = "ma">
+            <label for = "<?php echo $item;?>">
+              <input id = "<?php echo $item;?>" type = "radio" name = "userAnswer" value = "<?php echo $item;?>"hidden><?php echo $item;?>
+            </label>
+          </button>  
+         <?php }?>
+        </div>
+        </div>
+
+        <!-- <div class="form-group row">
           <label for="answer" class="col-sm-2 col-form-label">Your Answer</label>
           <div id = "selection" class="col-sm-3 btn">
              <select type = "submit" name = "userAnswer" class="form-control" onchange ="this.form.submit();">
@@ -60,7 +75,7 @@ $correctAnswer = $db_connection->query("SELECT * FROM notes WHERE Root = :$key")
             </select>
           </div>
         </div>
-        <div class = "form-group">
+        <div class = "form-group"> -->
           <!-- <button type="submit" id="check" name="check" class="col-sm-5 btn btn-outline-secondary">Check Answer
           <a href=""><i class="fa fa-music"></i></a>
           </button> -->
@@ -72,8 +87,6 @@ $correctAnswer = $db_connection->query("SELECT * FROM notes WHERE Root = :$key")
 
   <!-- NEW SECTION******************************************* -->
 <?php
-session_start();
-
 
 if(isset($_POST['clearScore'])){
   session_destroy();
