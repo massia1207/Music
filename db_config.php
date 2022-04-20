@@ -5,7 +5,7 @@
 // $db_username = 'marcus';
 // $db_password = 'cifNJ4B4IpQ5nZG9';
 
-$db_host = '127.0.0.1:54932';
+$db_host = '127.0.0.1:55023';
 $db_name = 'music';
 $db_username = 'azure';
 $db_password = '6#vWHD_$';
